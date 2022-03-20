@@ -1,6 +1,6 @@
 module github.com/cmakafui/news-parse-rss
 
-go 1.18
+go 1.17
 
 require github.com/gofiber/fiber/v2 v2.29.0
 
