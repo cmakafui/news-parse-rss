@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/mmcdole/gofeed"
 )
@@ -9,12 +11,15 @@ func main() {
 	// Start a new fiber app
 	app := fiber.New()
 
-	// Send a string back for GET calls to the endpoint "/"
+	// Get news items on the root endpoint "/"
 	app.Get("/", func(c *fiber.Ctx) error {
 		fp := gofeed.NewParser()
 		feed, _ := fp.ParseURL("http://ghheadlines.com/rss")
 	
-		err := c.SendString(feed.String())
+		items, _ := json.Marshal(feed.Items)
+
+		err := c.SendString(string(items))
+
 		return err
 	})
 
